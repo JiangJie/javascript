@@ -24,7 +24,22 @@ function playGame() {
 
 可修改变量使用`let`声明。
 
-变量声明和赋值尽量一步搞定，并一行定义一个变量，即使是最简单的`let i = 0;`。
+变量声明和赋值尽量一步搞定，并一行定义一个变量，即使是最简单的`let i = 0;`，禁止使用链式赋值方式，存在隐蔽的全局变量问题。
+
+```javascript
+// bad
+(function example() {
+  // JavaScript interprets this as
+  // let a = ( b = ( c = 1 ) );
+  // The let keyword only applies to variable a; variables b and c become
+  // global variables.
+  let a = b = c = 1;
+}());
+
+console.log(a); // undefined
+console.log(b); // 1
+console.log(c); // 1
+```
 
 禁止使用~~var~~，因为存在变量提升、变量重复声明、变量覆盖等隐蔽的棘手问题。
 
@@ -39,6 +54,18 @@ for(i = 0, i < n; i++) {
 }
 ```
 
+在变量需要使用时才定义。
+
+```javascript
+function enterRoom(id) {
+    if(!id) return;
+
+    // 前面的代码根本不需要opts
+    const opts = createOpts();
+    _enter(id, opts);
+}
+```
+
 数组和对象类型的变量，在创建的时候直接使用字面量进行创建。
 
 如果一个对象只需要当做简单的哈希类型来使用，可以使用`Object.create(null);`来进行创建纯净的对象变量。
@@ -48,6 +75,10 @@ const arr = [1, 2, 3];
 const obj = {a: 1, b: 2};
 const map = Object.create(null);
 ```
+
+### 全局变量
+
+不对全局变量进行增删改，需要跨文件共享变量请使用模块化。
 
 # 格式相关
 
@@ -93,6 +124,8 @@ isTrue ? fn1() : fn2();
 isTrue && fn1();
 ```
 
+switch的case和default语句使用花括号。
+
 以上非功能性语法格式大多可以借助IDE或者`jsFormat`等插件进行格式化，达到规范的效果。
 
 # 语法相关
@@ -137,6 +170,8 @@ const obj = {
 }
 ```
 
+对象的属性获取使用`.`，如果属性名含有非法变量名字符或者是一个变量，才使用`[]`。
+
 ### 函数
 
 因为函数声明也存在变量提升的问题，应尽量使用赋值的方式定义函数，同时为函数命名会更方便查问题。
@@ -149,7 +184,7 @@ const playGame = function playGame() {
 };
 ```
 
-需要注意的是，只有使用变量名才能进行函数调用，使用函数名是不行的。
+需要注意的是，只有使用变量名才能进行函数调用，使用函数名是不行的，实际上函数名经过变量提升了，不过没有赋值。
 
 ```javascript
 const playGame = function _playGame() {
@@ -209,3 +244,15 @@ function request(callback) {
 而undefined表示一个未定义的值，意思是此处其实有值，但是未定义，通常不需要关心其具体内容。
 
 比如用在函数返回值、变量声明而未定义、访问不存在的对象属性等情况。
+
+### ++/--
+
+避免在for循环以外使用++/--，使用+=/-=代替。
+
+### 比较操作
+
+使用`===`、`!==`，而不是`==`、`!=`。
+
+if判断的表达式会自动进行类型转换，无需显式做一次判断。
+
+使用`!`和`!!`将变量转换成布尔变量。
