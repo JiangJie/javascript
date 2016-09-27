@@ -256,3 +256,12 @@ function request(callback) {
 if判断的表达式会自动进行类型转换，无需显式做一次判断。
 
 使用`!`和`!!`将变量转换成布尔变量。
+
+当需要判断`+0`和`-0`，以及`NaN`时，比较操作符会出乎意料，这时候应使用`Object.is`。
+
+```javascript
++0 === -0; // true
+Object.is(+0, -0); // false
+NaN === NaN; // false
+Object.is(NaN, NaN); // true
+```
