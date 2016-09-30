@@ -113,7 +113,7 @@ const map = Object.create(null);
 const fn = function() {}; // 注意分号
 function fn() {}
 const Game = class {}; // 注意分号
-class Game {}
+class Game {};
 ```
 
 ### 花括号
@@ -169,6 +169,7 @@ const obj = {
     // bad
     'b': 2,
     // good
+    // 尽量避免这种属性名
     'c-d': 3 // 这里不要留逗号，在一些低级的解释器里会出错
 }
 ```
