@@ -8,12 +8,15 @@
 
 一般变量使用驼峰形式命名，常量使用全大写形式，并在单词之间用`_`隔开。
 
+类名也采用驼峰形式，不过首字母大写。
+
 ```javascript
 const GAME_NAME = 'dn';
 const playerName = 'liming';
 function playGame() {
     console.log(`${playerName} is playing ${gameName}`);
 }
+class Person {}
 ```
 
 ### 变量定义
@@ -86,7 +89,7 @@ const map = Object.create(null);
 
 严格使用`空格`进行缩进，一个tab设置为2个或者4个空格，需和团队保持一致。
 
-4个方面月度，不过，如果项目缩进层级较多，建议使用2个。
+4个方便阅读，不过，如果项目缩进层级较多，建议使用2个，如果显示器够宽，建议4个。
 
 禁止混用空格和tab。
 
