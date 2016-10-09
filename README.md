@@ -76,7 +76,8 @@ const b = 2;
 
 ```javascript
 function enterRoom(id) {
-    if(!id) return;
+    if(!id)
+        return;
 
     // 前面的代码根本不需要opts
     const opts = createOpts();
@@ -142,14 +143,15 @@ class Game {}
 
 左花括号跟在行尾，右花括号另起一行，参考前面的代码。
 
-`if`、`else` 里面如果只有一行语句，不用再写花括号了，这种情况也可以使用三元表达式。
+`if`、`else` 里面如果只有一行语句，不用再写花括号了，为了格式好看，换行和缩进还是需要，这种情况也可以使用三元表达式。
 
 如果只有if，可以使用`&&`或`||`进行简写，有`return`的除外。
 
 逻辑运算都是短路的。
 
 ```javascript
-if(true) doSomething();
+if(true)
+    doSomething();
 
 isTrue ? fn1() : fn2();
 
@@ -246,9 +248,12 @@ fn && fn();
 
 ```javascript
 function enterRoom(id) {
-    if(!id) return;
-    if(!isNumber(id)) return;
-    if(!isValid(id)) return;
+    if(!id)
+        return;
+    if(!isNumber(id))
+        return;
+    if(!isValid(id))
+        return;
     // enterRoom
 }
 ```
