@@ -166,7 +166,7 @@ isTrue && fn1();
 
 ### 严格模式
 
-总是使用严格模式，文件第一行必须是`'use strict;'`。
+~~总是使用严格模式，文件第一行必须是`'use strict;'`。~~
 
 使用ES6模块化语法和`class`自动开启严格模式。
 
@@ -191,7 +191,7 @@ const str4 = `hello ${world}`;
 
 数组和对象的最后一个元素后面不能留逗号。
 
-对象的key如果是一个合法的变量名就不加引号，否则加单引号。
+对象的key如果是一个合法的变量名就不加引号，否则加单引号。（高级压缩需要保留除外）
 
 ```javascript
 const arr = [1, 2, 3/* 这里不要留逗号*/];
@@ -205,7 +205,7 @@ const obj = {
 }
 ```
 
-对象的属性获取使用 **`.`** ，如果属性名不是一个合法的变量名，才使用`[]`。
+对象的属性获取使用 **`.`** ，如果属性名不是一个合法的变量名，才使用`[]`。（高级压缩需要保留除外）
 
 ### 函数
 
@@ -275,6 +275,15 @@ function request(callback) {
     return callback(null, data);
     // if fail
     callback(new Error('request error'));
+}
+
+function requestPromise() {
+    return new Promise(resolve => {
+        // if success
+        return resolve([null, data]);
+        // if fail
+        resolve([new Error('request error')]);
+    });
 }
 ```
 
@@ -475,6 +484,8 @@ const {name = 'hldn', play} = DN;
 
 // 数组也一样
 const [game1, game2] = games;
+
+const [err, data] = await requestPromise();
 ```
 
 另外，再看看如何轻松交换两个变量的值。
@@ -562,3 +573,8 @@ async function doSomthing() {
 迭代器可以使用`for...of`循环，相比数组进行迭代，迭代器有占用内存小的优势，因为迭代器的元素只有在需要时才会计算生成，不用像数组那样需要预先申请好内存。
 
 >更详细的迭代器用法参见[Iterators-And-Generators](https://github.com/nzakas/understandinges6/blob/master/manuscript/08-Iterators-And-Generators.md)。
+
+# Rules
+
+1. [JavaScript Standard Style](https://standardjs.com/rules.html)
+2. [我的ESLint规则](https://github.com/JiangJie/eslint-jarvis)
